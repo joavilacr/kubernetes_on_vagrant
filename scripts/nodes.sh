@@ -2,7 +2,6 @@
 
 initial_time=`date +%s`
 vm_num=$1
-
 echo ""
 echo "*********************************************************"
 echo "** EXTRA ** Initial install of Zscaler cert to allow communication to internet"
