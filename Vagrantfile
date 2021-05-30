@@ -27,7 +27,7 @@ Vagrant.configure(2) do |config|
     k8_control_plane_node1.vm.provision "file", source: "./zscaler-cert.crt", destination: "/tmp/zscaler-cert.crt"
 
     ########################### Install and configure Kubernetes Control Plane (master) in the cluster #############
-    k8_control_plane_node1.vm.provision "shell", path: "src/plane-node.sh"
+    k8_control_plane_node1.vm.provision "shell", path: "scripts/plane-node.sh"
 
   end
 
@@ -57,7 +57,7 @@ Vagrant.configure(2) do |config|
       subconfig.vm.provision "shell", inline: "sed -i '1 i\\172.16.94.1#{i} k8_node#{i}' /etc/hosts"
 
       ########################### Install and configure Kubernetes Nodes in the cluster ##########################
-      subconfig.vm.provision "shell", path: "src/nodes.sh", args: "#{i}"
+      subconfig.vm.provision "shell", path: "scripts/nodes.sh", args: "#{i}"
 
       ########################### Configuring IP routing tables to look at control plane node which by default uses eth01 (NAT) ip 10.96.0.1 ###############
       subconfig.vm.provision "shell", inline: "route add 10.96.0.1 gw 172.16.94.1#{i}" 
